@@ -25,8 +25,8 @@ def scan_port(ip, port):
         pass
 
 # Target configuration
-target_ip = "127.0.0.1" # Start by scanning your own machine (localhost)
-ports_to_scan = [21, 22, 80, 443, 3389]
+target_ip = "8.8.8.8" # Start by scanning your own machine (localhost)
+ports_to_scan = [53]
 
 print(f"Starting scan on {target_ip}...")
 for port in ports_to_scan:
