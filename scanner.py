@@ -1,34 +1,24 @@
-import socket # The library used for network connections
+import socket
+import threading # This allows us to do many things at once
 
 def scan_port(ip, port):
     try:
-        # Create a socket object (AF_INET = IPv4, SOCK_STREAM = TCP)
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        
-        # Set a timeout so it doesn't wait forever on closed ports
         s.settimeout(1)
-        
-        # Attempt to connect to the IP and Port
-        result = s.connect_ex((ip, port)) # returns 0 if port is open
-        
+        result = s.connect_ex((ip, port))
         if result == 0:
             print(f"[+] Port {port} is OPEN")
-            # Try to "grab the banner" (get the software version)
-            try:
-                banner = s.recv(1024).decode().strip()
-                print(f"    --> Banner: {banner}")
-            except:
-                print("    --> Banner: Could not retrieve")
-        
         s.close()
-    except Exception as e:
+    except:
         pass
 
-# Target configuration
-target_ip = "8.8.8.8" # Start by scanning your own machine (localhost)
-ports_to_scan = [53]
+target = "8.8.8.8"
+# We are going to scan the top 100 ports instead of just a few
+ports = range(1, 101) 
 
-print(f"Starting scan on {target_ip}...")
-for port in ports_to_scan:
-    scan_port(target_ip, port)
-print("Scan complete.")
+print(f"Scanning {target} with Multi-threading...")
+
+# This loop starts a new 'thread' for every port
+for port in ports:
+    thread = threading.Thread(target=scan_port, args=(target, port))
+    thread.start()
