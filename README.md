@@ -18,6 +18,8 @@ To solve the bottleneck of sequential scanning, I implemented **multi-threading*
 2.  **Concurrency:** Instead of waiting for Port 1 to finish before checking Port 2, the script spawns a new thread for every port in the range.
 3.  **Result Handling:** If a connection is successful (result code `0`), the port is flagged as OPEN.
 
+https://github.com/user-attachments/assets/7f3f700c-8960-4586-891c-00a428802084
+
 ## 💻 Installation & Usage
 ### Prerequisites
 * Python 3.x installed
